@@ -1,0 +1,773 @@
+Updated CSS with Noise Effect
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+body {
+  visibility: hidden;
+}
+
+body.ready {
+  display: block;
+  visibility: visible;
+}
+
+body.loaded {
+  visibility: visible;
+  opacity: 1;
+}
+
+body.loaded > *:not(#loading-screen) {
+  opacity: 1;
+}
+
+
+/* NOISE ELEMENTS */
+
+/* Add noise container that covers entire viewport
+.noise-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2000;
+  opacity: 1;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000;
+  overflow: hidden;
+  mix-blend-mode: overlay;
+}
+
+.noise {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background-image: url('/images/noise.png');
+  background-repeat: repeat;
+  background-size: 256px 256px;
+  filter: contrast(800%) brightness(1000%);
+  animation: noise 0.8s steps(4) infinite;
+  will-change: transform;
+}
+
+@keyframes noise {
+  0% { transform: translate3d(0, 0, 0); }
+  25% { transform: translate3d(-2rem,-2rem,0); }
+  50% { transform: translate3d(2rem,2rem,0); }
+  75% { transform: translate3d(-2rem,2rem,0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+ */
+
+
+
+/* LOADING SCREEN */
+
+/* Add to top of styles.css */
+
+
+/* Hide all other content until loaded */
+#loading-screen {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+
+body.loaded #loading-screen {
+  opacity: 0;
+  visibility: hidden;
+}
+
+
+body > *:not(#loading-screen) {
+  visibility: hidden;
+}
+
+
+body.loaded > *:not(#loading-screen) {
+  visibility: visible;
+  opacity: 1;
+}
+
+#loading-screen.hidden {
+  visibility: hidden;
+  opacity: 0;
+}
+
+
+.loading-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.loading-logo {
+  width: 200px;
+  filter: brightness(0) invert(1);
+  animation: pulse 2s infinite;
+}
+
+.loading-bar {
+  width: 200px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.2);
+  overflow: hidden;
+}
+
+.loading-progress {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, #4A00E0, #FF69B4);
+  transform: translateX(-100%);
+  animation: progress 2s ease-out forwards;
+}
+
+
+.loading-screen.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+@keyframes pulse {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
+}
+
+@keyframes progress {
+  to { transform: translateX(0); }
+}
+
+
+/* HEADER VIDEO */
+
+.video-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100vh;
+  z-index: 1;
+}
+
+.video-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.video-wrapper iframe {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100vw;
+  height: 100vh;
+  min-width: 100vw;
+  min-height: 100vh;
+  transform: translate(-50%, -50%) scale(1.5); /* Increased scale for better coverage */
+  pointer-events: none;
+  border: none;
+}
+
+/* LOGO ANIMATION */
+
+.header {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1002;
+  pointer-events: none;
+}
+
+.logo {
+  width: 60vw;
+  max-width: 1100px;
+  min-width: 300px;
+  height: auto;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  filter: brightness(0) invert(1) drop-shadow(0 4px 6px rgba(0, 0, 0, 0.5));
+}
+
+.logo-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
+.header.scrolled {
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 110px;
+  background-color: transparent;
+  width: fit-content;
+}
+
+.header.scrolled .logo {
+  width: 165px;
+  min-width: 100px;
+  filter: brightness(0) invert(1) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+  margin: 0;
+}
+
+.header.scrolled .logo-container {
+  transform: none;
+  pointer-events: auto;
+  margin: 0;
+  padding: 0;
+}
+
+/* MENU BAR */
+
+.menu-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 110px;
+  background-color: #000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 2rem;
+  transform: translateY(-100%);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  z-index: 1001;
+}
+
+.menu-bar::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(
+    to right,
+    #4A00E0,
+    #FF69B4,
+    #4A00E0
+  );
+
+
+
+
+  background-size: 200% 100%;
+  animation: gradientSlide 7s linear infinite;
+}
+
+@keyframes gradientSlide {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}
+
+.hamburger {
+  position: absolute;
+  left: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.hamburger span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: #ffffff;
+  transition: all 0.3s ease;
+}
+
+.hamburger:hover span {
+  opacity: 0.8;
+}
+
+.menu-bar.visible {
+  transform: translateY(0);
+}
+
+/* BELOW THE HEADER */
+
+.content {
+  position: relative;
+  margin-top: 100vh;
+  background: #000000;
+  width: 100%;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  padding-left: 0;
+  padding-right: 0;
+  z-index: 10; /* Increased z-index */
+}
+
+/* Update scroll section */
+.scroll-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 2rem;
+  border-bottom: 1px solid #333;
+  overflow: visible;
+  opacity: .9;
+  width: 100vw; /* Explicitly set width */
+  margin: 0; /* Reset margins */
+  padding: 0; /* Reset padding */
+  border-top: 2px solid rgb(255, 255, 255);
+  border-bottom: 2px solid rgb(255, 255, 255);
+}
+
+.scroll-section.section-1 {
+  position: relative;
+  min-height: 80vh;
+  padding: 4rem 0;
+  z-index: 2;
+  overflow: hidden;
+  background-color: #000;
+  transform: translateZ(0); /* Forces a new stacking context */
+  backface-visibility: hidden; /* Helps prevent bleed-through */
+  perspective: 1000; /* Creates depth for the stacking context */
+}
+
+/* Background image */
+.scroll-section.section-1::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('images/DSC_0527.JPG');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #000;
+  z-index: 1;
+  transform: translateZ(0); /* Ensure the background is also in its own layer */
+}
+
+/* Gradient overlay */
+.scroll-section.section-1::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(44, 44, 45, 0.70) 0%, rgba(0, 0, 0, 0.95) 100%);
+  z-index: 2;
+}
+
+.scroll-section.section-1 .text-content {
+  position: relative;
+  width: 75%;
+  text-align: center;
+  color: white;
+  font-family: 'TT Fors Trial', sans-serif;
+  font-weight: normal;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 2rem 0;
+  margin-bottom: 0;
+}
+
+
+
+/* CURSOR PARTICLE SECTION */
+
+
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: 999;
+  pointer-events: none;
+}
+
+.particle-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* SECTION 2 PARALLAX */
+
+.parallax-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100vh;
+  z-index: 1;
+  overflow: visible;
+}
+
+.parallax-image {
+  position: absolute;
+  background-position: center;
+  background-size: cover;
+  will-change: transform, opacity;
+  transition: opacity 0.2s ease-out;
+}
+
+.parallax-wrapper {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  z-index: 1;
+  overflow: visible;
+
+  border-bottom: 2px solid rgb(255, 255, 255);
+}
+
+.parallax-back {
+  width: 100%;
+  height: 120vh;
+  left: 50%;
+  z-index: 1;
+  opacity: 1;
+}
+
+.parallax-middle {
+  width: 55%;    /* Reduced from 100% */
+  height: 100%;   /* Reduced from 120% */
+  left: 52%; /* Adjust this value to move left/right */
+  top: -10%; /* Adjust this value to move up/down */
+  z-index: 2;
+  opacity: 1;
+  filter: drop-shadow(0124px 15px rgba(0, 0, 0, 0.6));
+}
+
+/* Front layer */
+.parallax-front {
+  width: 50%;
+  height: 50%; /* Match width to maintain aspect ratio */
+  z-index: 3;
+  opacity: 1;
+  left: 5%; /* Adjust this value to move left/right */
+  top: -70%; /* Adjust this value to move up/down */
+  filter: drop-shadow(0 12px 15px rgba(0, 0, 0, 0.6));
+}
+
+.black-section {
+  height: 100vh;
+  background: #000000;
+  position: relative;
+  z-index: 2;
+  overflow: visible;
+  width: 100vw; /* Explicitly set width */
+  margin: 0; /* Reset margins */
+
+
+}
+
+
+
+/* TEXT SECTION 2 OUR APPROACH */
+.text-section {
+  padding: 6rem 10rem;
+  background: #f17fd4;
+  position: relative;
+  z-index: 2;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Changed from flex-start to center */
+  text-align: center; /* Added to center text */
+  border-top: 2px solid rgb(255, 255, 255);
+  border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.text-section h2 {
+  font-family: 'TT Fors Trial Bold', sans-serif;
+  font-size: 6rem;
+  color: #000000;
+  margin-bottom: 2rem;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  text-align: center;
+  width: 100%;
+}
+
+.text-section h2.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.text-section p {
+  font-family: 'TT Fors Trial', sans-serif;
+  font-size: 1.8rem;
+  line-height: 1.6;
+  color: #ffffff;
+  margin-bottom: 2rem;
+  max-width: 800px;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.2s;
+  text-align: center; /* Added to center paragraph text */
+  margin-left: auto; /* Added to help center the paragraph block */
+  margin-right: auto; /* Added to help center the paragraph block */
+}
+
+.text-section p.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Make sure no other styles are overriding these */
+.text-section * {
+  color: #ffffff !important;
+}
+
+
+/* FONT SECTION */
+
+
+@font-face {
+  font-family: 'TT Fors Trial';
+  src: url('TT Fors Trial Medium.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+
+/* FIRST COPY SECTION */
+
+
+
+.text-line {
+  font-size: 6rem;
+  color: #ffffff;
+  line-height: 1.2;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.text-line.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Add different delays for each line */
+.text-line:nth-child(1).visible {
+  transition-delay: 0s;
+}
+
+.text-line:nth-child(2).visible {
+  transition-delay: 0.2s;
+}
+
+.text-line:nth-child(3).visible {
+  transition-delay: 0.4s;
+}
+
+
+
+
+
+
+/* SCREEN RESIZING */
+
+
+@media (min-aspect-ratio: 16/9) {
+  .video-wrapper iframe {
+    /* Height based on width */
+    width: 100vw;
+    height: 56.25vw; /* 16:9 Aspect Ratio */
+  }
+}
+
+@media (max-aspect-ratio: 16/9) {
+  .video-wrapper iframe {
+    /* Width based on height */
+    width: 177.78vh; /* 16:9 Aspect Ratio */
+    height: 100vh;
+  }
+}
+
+@media (max-width: 1024px) {
+  .video-wrapper iframe {
+      width: 250vh;
+  }
+}
+
+@media (max-width: 768px) {
+  .logo {
+      width: 80vw;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo {
+      width: 90vw;
+  }
+}
+
+
+
+
+
+
+/* FOOTER SECTION */
+
+/* Footer Styles */
+/* Updated Footer Logo Styles */
+.footer-section {
+  position: relative;
+  min-height: 50vh; /* Reduced from 100vh */
+  background-color: #000000;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  padding: 0rem 10rem; /* Reduced padding */
+  overflow: hidden;
+  z-index: 10;
+  border-top: 2px solid rgb(255, 255, 255); /* Added subtle white stroke */
+}
+
+.footer-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000000;
+  z-index: 1;
+}
+
+.footer-logo {
+  position: fixed; /* Changed to fixed to ensure consistent positioning */
+  bottom: -150vh;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 115vw;
+  max-width: 2200px;
+  min-width: 300px;
+  opacity: 0;
+  transition: all 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 2;
+  pointer-events: none;
+  filter: brightness(100) invert(0); /* Ensure logo is white */
+}
+
+.footer-logo.visible {
+  bottom: -17vh;
+  opacity: .3;
+  transform: translateX(-50%); /* Maintain horizontal centering */
+}
+
+.footer-content {
+  position: relative;
+  z-index: 3; /* Ensure content is above logo */
+  text-align: left;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.footer-heading {
+  font-family: 'TT Fors Trial Bold', sans-serif;
+  font-size: 6rem;
+  margin-bottom: 2rem;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.footer-heading.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.footer-email {
+  font-family: 'TT Fors Trial Medium', sans-serif;
+  font-size: 3rem;
+  margin-bottom: 4rem;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.2s;
+}
+
+.footer-email.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.footer-email a {
+  color: #ffffff;
+  text-decoration: none;
+  position: relative;
+}
+
+.footer-email a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to right, #4A00E0, #FF69B4);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.footer-email a:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.copyright {
+  font-family: 'TT Fors Trial Regular', sans-serif;
+  font-size: 0.875rem;
+  opacity: 0.7;
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  z-index: 3; /* Ensure copyright is above logo */
+}

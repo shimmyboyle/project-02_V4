@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HYPERREAL LABS</title>
+  <link rel="preload" href="TT Fors Trial Medium.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+
+    <style>
+/* Loading Screen */
+#loading-screen {
+    visibility: visible;
+    opacity: 1;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: black;
+    z-index: 999999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; /* Allows stacking of elements */
+    font-family: 'TT Fors Trial Medium', sans-serif; /* Use site font */
+    color: white; /* Ensure visibility of text */
+    font-size: 2.5rem; /* Slightly larger text */
+    letter-spacing: 2px; /* Add spacing for elegance */
+    text-transform: uppercase; /* Uniform text style */
+    animation: fadeIn 1s ease-out; /* Fading animation */
+}
+
+/* Loading Text Animation */
+#loading-screen span {
+    display: inline-block;
+    animation: bounce 1.5s infinite ease-in-out; /* Smooth bounce animation */
+}
+
+/* Different bounce delays for dots */
+#loading-screen span:nth-child(1) {
+    animation-delay: 0s;
+}
+#loading-screen span:nth-child(2) {
+    animation-delay: 0.3s;
+}
+#loading-screen span:nth-child(3) {
+    animation-delay: 0.6s;
+}
+
+/* Keyframes for fading in */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Keyframes for bouncing dots */
+@keyframes bounce {
+    0%, 80%, 100% {
+        transform: scale(1);
+    }
+    40% {
+        transform: scale(1.5);
+    }
+}
+
+
+    </style>
+        <script>
+window.addEventListener('load', () => {
+    const loadingScreen = document.getElementById('loading-screen');
+
+    // Fade out the loading screen once all assets are loaded
+    loadingScreen.style.opacity = '0';
+    loadingScreen.style.visibility = 'hidden';
+
+    // Ensure body content is revealed after loading screen hides
+    document.body.classList.add('loaded');
+});
+
+
+    </script>
+</head>
+<body>
+    <div id="loading-screen">
+        <div><span>.</span><span>.</span><span>.</span></div>
+    </div>
+    
+
+</body>
+</html>
